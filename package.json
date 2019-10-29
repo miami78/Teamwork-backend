@@ -5,7 +5,8 @@
   "description": "Teamwork is an internal social network for employees of an organization.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -25,17 +26,19 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "knex": "^0.14.2",
-    "pg": "^7.4.0"
+    "pg": "^7.4.0",
+    "nodemon": "^1.19.4"
   },
   "devDependencies": {
     "eslint": "6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-config-node": "^4.0.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "prettier": "^1.18.2",
-    "nodemon": "^1.12.7"
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2"
   }
 }
