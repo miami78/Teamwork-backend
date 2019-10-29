@@ -1,0 +1,41 @@
+{
+  "name": "teamwork-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Teamwork is an internal social network for employees of an organization.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 7
+    },
+    "env": {
+      "node": true
+    }
+  },
+  "repository": "https://github.com/miami78/Teamwork-backend.git",
+  "author": "Miami Larry",
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "knex": "^0.14.2",
+    "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "eslint": "6.1.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-node": "^4.0.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "nodemon": "^1.12.7"
+  }
+}
