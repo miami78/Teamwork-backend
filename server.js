@@ -8,9 +8,9 @@ const db = knex({
   client: 'pg',
   connection: {
     host : '127.0.0.1',
-    user : 'miami',
-    password : '',
-    database : 'teamwork'
+    user : 'postgres',
+    password : '50filthyCENT!',
+    database : 'teamwork-dev'
   }
 });
 
