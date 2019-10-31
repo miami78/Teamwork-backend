@@ -57,4 +57,17 @@ app.post("/gifs", (req, res, next) => {
     }
   });
 });
+
+// employees can write and/or share articles
+app.post("/articles", (req, res, next) => {
+  res.status(201).json({
+    status: "success",
+    data: {
+      message: "Article successfully posted",
+      articleId: 10,
+      createdOn: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      title: ""
+    }
+  });
+});
 module.exports = app;
