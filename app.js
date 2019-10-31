@@ -89,5 +89,7 @@ app.delete("/articles/:articleId", (req, res, next) => {
     status: "success",
     data: {
       message: "Article successfully deleted",
-
+    }
+  });
+});
 module.exports = app;
