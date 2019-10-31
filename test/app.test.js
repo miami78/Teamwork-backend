@@ -164,4 +164,40 @@ describe("Teamwork", () => {
         });
     });
   });
+  // employees can edit their article
+  describe("PATCH /articles/<:articleId>", function() {
+    it("responds with status code 200 - can edit article", function(done) {
+      request(app)
+        .patch("/articles/:articleId")
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+    it("returns json data containing status success", function(done) {
+      request(app)
+        .patch("/articles/:articleId")
+        .set("header", "application/json")
+        .send({
+          title: "string",
+          article: "string"
+        })
+        .expect("Content-Type", /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message, title, article }
+            }
+          } = res;
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Article successfully updated");
+          expect(title).to.be.a("string");
+          expect(article).to.be.a("string");
+          done();
+        });
+    });
+  });
 });
