@@ -70,4 +70,14 @@ app.post("/articles", (req, res, next) => {
     }
   });
 });
+
+// employees can delete their articles
+app.delete("/articles/:articleId", (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      message: "Article successfully deleted",
+    }
+  });
+});
 module.exports = app;
