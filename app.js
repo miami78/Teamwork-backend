@@ -70,4 +70,16 @@ app.post("/articles", (req, res, next) => {
     }
   });
 });
+
+// employees can edit their articles
+app.patch("/articles/:articleId", (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      message: "Article successfully updated",
+      title: "",
+      article: ""
+    }
+  });
+});
 module.exports = app;
