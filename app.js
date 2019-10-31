@@ -33,4 +33,11 @@ app.post("/auth/create-user", (req, res, next) => {
     }
   });
 });
+// Admin/Employee can signin
+app.post("/auth/signin", (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: { token: "", userId: 9 }
+  });
+});
 module.exports = app;
