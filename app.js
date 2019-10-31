@@ -88,7 +88,7 @@ app.delete("/articles/:articleId", (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      message: "Article successfully deleted",
+      message: "Article successfully deleted"
     }
   });
 });
@@ -98,7 +98,7 @@ app.delete("/gifs/:gifId", (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      message: "gif post successfully deleted",
+      message: "gif post successfully deleted"
     }
   });
 });
