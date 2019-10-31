@@ -200,4 +200,26 @@ describe("Teamwork", () => {
         });
     });
   });
+  // employees can delete their articles
+  describe("DELETE /articles/<:articleId>", function() {
+    it("returns json data and responds with status code 200", function(done) {
+      request(app)
+        .delete("/articles/:articleId")
+        .set("header", "application/json")
+        .expect("Content-Type", /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message }
+            }
+          } = res;
+          expect(res.status).to.equal(200);
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Article successfully deleted");
+          done();
+        });
+    });
+  });
 });
