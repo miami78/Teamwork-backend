@@ -92,4 +92,14 @@ app.delete("/articles/:articleId", (req, res, next) => {
     }
   });
 });
+
+// employees can delete their gifs
+app.delete("/gifs/:gifId", (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      message: "gif post successfully deleted",
+    }
+  });
+});
 module.exports = app;
