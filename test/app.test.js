@@ -223,3 +223,26 @@ describe("Teamwork", () => {
     });
   });
 });
+
+// employees can delete their gif
+describe("DELETE /gifs/<:gifId>", function() {
+  it("responds with status code 200 and returns json object", function(done) {
+    request(app)
+      .delete("/gifs/:gifId")
+      .set("header", "application/json")
+      .expect("Content-Type", /json/)
+      .end(function(err, res) {
+        if (err) return done(err);
+        const {
+          body: {
+            status,
+            data: { message }
+          }
+        } = res;
+        expect(res.status).to.equal(200);
+        expect(status).to.equal("success");
+        expect(message).to.be.equal("gif post successfully deleted");
+        done();
+      });
+  });
+});
