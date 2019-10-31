@@ -56,4 +56,40 @@ describe("Teamwork", () => {
         });
     });
   });
+
+  // Admin/Employee can signin
+  describe("POST /auth/signin", function() {
+    it("responds with status code 200", function(done) {
+      request(app)
+        .post("/auth/signin")
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+    it("returns json data containing status success", function(done) {
+      request(app)
+        .post("/auth/signin")
+        .send({
+          email: "string",
+          password: "string"
+        })
+        .expect("Content-Type", /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { token, userId }
+            }
+          } = res;
+          expect(status).to.equal("success");
+          expect(token).to.be.a("string");
+          expect(userId).to.be.a("number");
+          expect(userId % 1).to.equal(0);
+          done();
+        });
+    });
+  });
 });
