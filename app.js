@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const knex = require("knex");
+
 
 const db = knex({
   client: "pg",
@@ -17,5 +17,6 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
 
 module.exports = app;
