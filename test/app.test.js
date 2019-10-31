@@ -4,27 +4,25 @@ const app = require("../app");
 
 describe("Teamwork", () => {
   // gets json response
-  describe("GET /", function() {
-    it("responds with json", function() {
-      return request(app)
-        .get("/")
-        .set("Accept", "application/json")
-        .expect("Content-Type", /json/)
-        .expect(200);
-    });
+  describe("GET /", () => {
+    it("responds with json", () => request(app)
+      .get("/")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(200));
   });
 
   // Admin can create an employee user account
-  describe("POST /auth/create-user", function() {
-    it("returns status code 201", function(done) {
+  describe("POST /auth/create-user", () => {
+    it("returns status code 201", done => {
       request(app)
         .post("/auth/create-user")
-        .end(function(err, res) {
-          expect(res.status).to.equal(201);
+        .end((err, {status}) => {
+          expect(status).to.equal(201);
           done();
         });
     });
-    it("responds with json data containing status success", function(done) {
+    it("responds with json data containing status success", done => {
       request(app)
         .post("/auth/create-user")
         .send({
@@ -38,7 +36,7 @@ describe("Teamwork", () => {
           address: "string"
         })
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
@@ -58,17 +56,17 @@ describe("Teamwork", () => {
   });
 
   // Admin/Employee can signin
-  describe("POST /auth/signin", function() {
-    it("responds with status code 200", function(done) {
+  describe("POST /auth/signin", () => {
+    it("responds with status code 200", done => {
       request(app)
         .post("/auth/signin")
-        .end(function(err, res) {
+        .end((err, {status}) => {
           if (err) return done(err);
-          expect(res.status).to.equal(200);
+          expect(status).to.equal(200);
           done();
         });
     });
-    it("returns json data containing status success", function(done) {
+    it("returns json data containing status success", done => {
       request(app)
         .post("/auth/signin")
         .send({
@@ -76,7 +74,7 @@ describe("Teamwork", () => {
           password: "string"
         })
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
@@ -93,22 +91,22 @@ describe("Teamwork", () => {
     });
   });
   // employees can post gifs
-  describe("POST /gifs", function() {
-    it("responds with status code 201 - Creates a gif", function(done) {
+  describe("POST /gifs", () => {
+    it("responds with status code 201 - Creates a gif", done => {
       request(app)
         .post("/gifs")
-        .end(function(err, res) {
+        .end((err, {status}) => {
           if (err) return done(err);
-          expect(res.status).to.equal(201);
+          expect(status).to.equal(201);
           done();
         });
     });
-    it("returns json object with status success", function(done) {
+    it("returns json object with status success", done => {
       request(app)
         .post("/gifs")
         .set("header", "application/json")
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
@@ -128,16 +126,16 @@ describe("Teamwork", () => {
     });
   });
   // employees can write and/or share articles
-  describe("POST /articles", function() {
-    it("responds with status code 201 - creates article", function(done) {
+  describe("POST /articles", () => {
+    it("responds with status code 201 - creates article", done => {
       request(app)
         .post("/articles")
-        .end(function(err, res) {
-          expect(res.status).to.equal(201);
+        .end((err, {status}) => {
+          expect(status).to.equal(201);
           done();
         });
     });
-    it("returns json object containing status success", function(done) {
+    it("returns json object containing status success", done => {
       request(app)
         .post("/articles")
         .set("header", "application/json")
@@ -146,7 +144,7 @@ describe("Teamwork", () => {
           article: "string"
         })
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
@@ -165,17 +163,17 @@ describe("Teamwork", () => {
     });
   });
   // employees can edit their article
-  describe("PATCH /articles/<:articleId>", function() {
-    it("responds with status code 200 - can edit article", function(done) {
+  describe("PATCH /articles/<:articleId>", () => {
+    it("responds with status code 200 - can edit article", done => {
       request(app)
         .patch("/articles/:articleId")
-        .end(function(err, res) {
+        .end((err, {status}) => {
           if (err) return done(err);
-          expect(res.status).to.equal(200);
+          expect(status).to.equal(200);
           done();
         });
     });
-    it("returns json data containing status success", function(done) {
+    it("returns json data containing status success", done => {
       request(app)
         .patch("/articles/:articleId")
         .set("header", "application/json")
@@ -184,7 +182,7 @@ describe("Teamwork", () => {
           article: "string"
         })
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
@@ -201,3 +199,4 @@ describe("Teamwork", () => {
     });
   });
 });
+
