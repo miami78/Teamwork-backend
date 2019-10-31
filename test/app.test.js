@@ -3,6 +3,7 @@ const request = require("supertest");
 const app = require("../app");
 
 describe("Teamwork", () => {
+  // gets json response
   describe("GET /", function() {
     it("responds with json", function() {
       return request(app)
