@@ -102,4 +102,18 @@ app.delete("/gifs/:gifId", (req, res, next) => {
     }
   });
 });
+
+// employees can comment on other colleagues' article post
+app.post("/articles/:articleId/comment", (req, res, next) => {
+  res.status(201).json({
+    status: "success",
+    data: {
+      message: "Comment successfully created",
+      createdOn: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      articleTitle: "",
+      article: "",
+      comment: ""
+    }
+  });
+});
 module.exports = app;
