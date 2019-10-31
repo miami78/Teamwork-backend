@@ -127,4 +127,41 @@ describe("Teamwork", () => {
         });
     });
   });
+  // employees can write and/or share articles
+  describe("POST /articles", function() {
+    it("responds with status code 201 - creates article", function(done) {
+      request(app)
+        .post("/articles")
+        .end(function(err, res) {
+          expect(res.status).to.equal(201);
+          done();
+        });
+    });
+    it("returns json object containing status success", function(done) {
+      request(app)
+        .post("/articles")
+        .set("header", "application/json")
+        .send({
+          title: "string",
+          article: "string"
+        })
+        .expect("Content-Type", /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message, articleId, createdOn, title }
+            }
+          } = res;
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Article successfully posted");
+          expect(createdOn).to.be.a("string");
+          expect(title).to.be.a("string");
+          expect(articleId).to.be.a("number");
+          expect(articleId % 1).to.equal(0);
+          done();
+        });
+    });
+  });
 });
