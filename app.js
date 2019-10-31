@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const moment = require("moment");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.json({ message: "Server starts successfully!" });
 });
+
 // admin can create an employee user account
 app.post("/auth/create-user", (req, res, next) => {
   res.status(201).json({
@@ -33,11 +35,26 @@ app.post("/auth/create-user", (req, res, next) => {
     }
   });
 });
+
 // Admin/Employee can signin
 app.post("/auth/signin", (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: { token: "", userId: 9 }
+  });
+});
+
+// employees can post gifs
+app.post("/gifs", (req, res, next) => {
+  res.status(201).json({
+    status: "success",
+    data: {
+      gifId: 10,
+      message: "GIF image successfully posted",
+      createdOn: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      title: "",
+      imageUrl: ""
+    }
   });
 });
 module.exports = app;
