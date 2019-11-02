@@ -5,32 +5,18 @@ const app = require("../app");
 describe("Teamwork", () => {
   // gets json response
   describe("GET /", () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     it("responds with json", () =>
       request(app)
         .get("/")
         .set("Accept", "application/json")
         .expect("Content-Type", /json/)
         .expect(200));
-=======
-=======
->>>>>>> delete_article
-=======
->>>>>>> edit_article
-    it("responds with json", () => request(app)
-      .get("/")
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .expect(200));
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> create_article
-=======
->>>>>>> delete_article
-=======
->>>>>>> edit_article
+    it("responds with json", () =>
+      request(app)
+        .get("/")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200));
   });
 
   // Admin can create an employee user account
@@ -38,19 +24,7 @@ describe("Teamwork", () => {
     it("returns status code 201", done => {
       request(app)
         .post("/auth/create-user")
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         .end((err, { status }) => {
-=======
-        .end((err, {status}) => {
->>>>>>> create_article
-=======
-        .end((err, {status}) => {
->>>>>>> delete_article
-=======
-        .end((err, {status}) => {
->>>>>>> edit_article
           expect(status).to.equal(201);
           done();
         });
@@ -93,7 +67,7 @@ describe("Teamwork", () => {
     it("responds with status code 200", done => {
       request(app)
         .post("/auth/signin")
-        .end((err, {status}) => {
+        .end((err, { status }) => {
           if (err) return done(err);
           expect(status).to.equal(200);
           done();
@@ -128,7 +102,7 @@ describe("Teamwork", () => {
     it("responds with status code 201 - Creates a gif", done => {
       request(app)
         .post("/gifs")
-        .end((err, {status}) => {
+        .end((err, { status }) => {
           if (err) return done(err);
           expect(status).to.equal(201);
           done();
@@ -163,7 +137,7 @@ describe("Teamwork", () => {
     it("responds with status code 201 - creates article", done => {
       request(app)
         .post("/articles")
-        .end((err, {status}) => {
+        .end((err, { status }) => {
           expect(status).to.equal(201);
           done();
         });
@@ -200,7 +174,7 @@ describe("Teamwork", () => {
     it("responds with status code 200 - can edit article", done => {
       request(app)
         .patch("/articles/:articleId")
-        .end((err, {status}) => {
+        .end((err, { status }) => {
           if (err) return done(err);
           expect(status).to.equal(200);
           done();
@@ -347,4 +321,3 @@ describe("Teamwork", () => {
     });
   });
 });
-
