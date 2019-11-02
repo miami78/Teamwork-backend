@@ -6,6 +6,7 @@ describe("Teamwork", () => {
   // gets json response
   describe("GET /", () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     it("responds with json", () =>
       request(app)
         .get("/")
@@ -13,12 +14,17 @@ describe("Teamwork", () => {
         .expect("Content-Type", /json/)
         .expect(200));
 =======
+=======
+>>>>>>> delete_article
     it("responds with json", () => request(app)
       .get("/")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(200));
+<<<<<<< HEAD
 >>>>>>> create_article
+=======
+>>>>>>> delete_article
   });
 
   // Admin can create an employee user account
@@ -27,10 +33,14 @@ describe("Teamwork", () => {
       request(app)
         .post("/auth/create-user")
 <<<<<<< HEAD
+<<<<<<< HEAD
         .end((err, { status }) => {
 =======
         .end((err, {status}) => {
 >>>>>>> create_article
+=======
+        .end((err, {status}) => {
+>>>>>>> delete_article
           expect(status).to.equal(201);
           done();
         });
@@ -176,17 +186,17 @@ describe("Teamwork", () => {
     });
   });
   // employees can edit their article
-  describe("PATCH /articles/<:articleId>", function() {
-    it("responds with status code 200 - can edit article", function(done) {
+  describe("PATCH /articles/<:articleId>", () => {
+    it("responds with status code 200 - can edit article", done => {
       request(app)
         .patch("/articles/:articleId")
-        .end(function(err, res) {
+        .end((err, {status}) => {
           if (err) return done(err);
-          expect(res.status).to.equal(200);
+          expect(status).to.equal(200);
           done();
         });
     });
-    it("returns json data containing status success", function(done) {
+    it("returns json data containing status success", done => {
       request(app)
         .patch("/articles/:articleId")
         .set("header", "application/json")
@@ -195,7 +205,7 @@ describe("Teamwork", () => {
           article: "string"
         })
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
@@ -212,13 +222,13 @@ describe("Teamwork", () => {
     });
   });
   // employees can delete their articles
-  describe("DELETE /articles/<:articleId>", function() {
-    it("returns json data and responds with status code 200", function(done) {
+  describe("DELETE /articles/<:articleId>", () => {
+    it("returns json data and responds with status code 200", done => {
       request(app)
         .delete("/articles/:articleId")
         .set("header", "application/json")
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
