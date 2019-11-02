@@ -221,63 +221,97 @@ describe("Teamwork", () => {
         });
     });
   });
-});
 
-// employees can delete their gif
-describe("DELETE /gifs/<:gifId>", function() {
-  it("responds with status code 200 and returns json object", function(done) {
-    request(app)
-      .delete("/gifs/:gifId")
-      .set("header", "application/json")
-      .expect("Content-Type", /json/)
-      .end(function(err, res) {
-        if (err) return done(err);
-        const {
-          body: {
-            status,
-            data: { message }
-          }
-        } = res;
-        expect(res.status).to.equal(200);
-        expect(status).to.equal("success");
-        expect(message).to.be.equal("gif post successfully deleted");
-        done();
-      });
+  // employees can delete their gif
+  describe("DELETE /gifs/<:gifId>", function() {
+    it("responds with status code 200 and returns json object", function(done) {
+      request(app)
+        .delete("/gifs/:gifId")
+        .set("header", "application/json")
+        .expect("Content-Type", /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message }
+            }
+          } = res;
+          expect(res.status).to.equal(200);
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("gif post successfully deleted");
+          done();
+        });
+    });
   });
-});
 
-// Employees can comment on other colleagues' article post
-describe("POST /articles/<:articleId>/comment", function() {
-  it("responds with status code 201", function(done) {
-    request(app)
-      .post("/articles/:articleId/comment")
-      .end(function(err, res) {
-        if (err) return done(err);
-        expect(res.status).to.equal(201);
-        done();
-      });
+  // Employees can comment on other colleagues' article post
+  describe("POST /articles/<:articleId>/comment", function() {
+    it("responds with status code 201", function(done) {
+      request(app)
+        .post("/articles/:articleId/comment")
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.status).to.equal(201);
+          done();
+        });
+    });
+    it("returns json object containing comment and status success", function(done) {
+      request(app)
+        .post("/articles/:articleId/comment")
+        .set("header", "application/json")
+        .send({ comment: "string" })
+        .expect("Content-Type", /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message, createdOn, articleTitle, article, comment }
+            }
+          } = res;
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Comment successfully created");
+          expect(createdOn).to.be.a("string");
+          expect(articleTitle).to.be.a("string");
+          expect(article).to.be.a("string");
+          expect(comment).to.be.a("string");
+          done();
+        });
+    });
   });
-  it("returns json object containing comment and status success", function(done) {
-    request(app)
-      .post("/articles/:articleId/comment")
-      .set("header", "application/json")
-      .send({ comment: "string" })
-      .expect("Content-Type", /json/)
-      .end(function(err, res) {
-        if (err) return done(err);
-        const {
-          body: {
-            status,
-            data: { message, createdOn, articleTitle, article, comment }
-          }
-        } = res;
-        expect(status).to.equal("success");
-        expect(message).to.be.equal("Comment successfully created");
-        expect(createdOn).to.be.a("string");
-        expect(articleTitle).to.be.a("string");
-        expect(article).to.be.a("string");
-        expect(comment).to.be.a("string");
-        done();
-      });
+  // Employees can comment on other colleagues' gif post
+  describe("POST /gifs/<:gifId>/comment", function() {
+    it("responds with status code 201", function(done) {
+      request(app)
+        .post("/gifs/:gifId/comment")
+        .end(function(err, res) {
+          if (err) return done(err);
+          expect(res.status).to.equal(201);
+          done();
+        });
+    });
+    it("return json object with comment and status success", function(done) {
+      request(app)
+        .post("/gifs/:gifId/comment")
+        .set("header", "application/json")
+        .send({ comment: "string" })
+        .expect("Content-Type", /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message, createdOn, gifTitle, comment }
+            }
+          } = res;
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Comment successfully created");
+          expect(createdOn).to.be.a("string");
+          expect(gifTitle).to.be.a("string");
+          expect(comment).to.be.a("string");
+          done();
+        });
+    });
   });
 });

@@ -88,7 +88,7 @@ app.delete("/articles/:articleId", (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      message: "Article successfully deleted",
+      message: "Article successfully deleted"
     }
   });
 });
@@ -98,7 +98,7 @@ app.delete("/gifs/:gifId", (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      message: "gif post successfully deleted",
+      message: "gif post successfully deleted"
     }
   });
 });
@@ -112,6 +112,19 @@ app.post("/articles/:articleId/comment", (req, res, next) => {
       createdOn: moment().format("MMMM Do YYYY, h:mm:ss a"),
       articleTitle: "",
       article: "",
+      comment: ""
+    }
+  });
+});
+
+// employees can comment on other colleagues' gif post
+app.post("/gifs/:gifId/comment", (req, res, next) => {
+  res.status(201).json({
+    status: "success",
+    data: {
+      message: "Comment successfully created",
+      createdOn: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      gifTitle: "",
       comment: ""
     }
   });
