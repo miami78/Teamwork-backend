@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "nyc mocha"
+    "test": "nyc mocha --recursive"
   },
   "repository": "https://github.com/miami78/Teamwork-backend.git",
   "author": "Miami Larry",
@@ -21,6 +21,7 @@
     "pg": "^7.4.0"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-node": "^4.0.0",

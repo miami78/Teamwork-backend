@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 const http = require("http");
-const app = require("./app");
+const app = require("./app").default;
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -48,3 +48,5 @@ server.on("listening", () => {
 });
 
 server.listen(port);
+
+module.exports = app;
