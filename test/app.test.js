@@ -7,6 +7,7 @@ describe("Teamwork", () => {
   describe("GET /", () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     it("responds with json", () =>
       request(app)
         .get("/")
@@ -16,15 +17,20 @@ describe("Teamwork", () => {
 =======
 =======
 >>>>>>> delete_article
+=======
+>>>>>>> edit_article
     it("responds with json", () => request(app)
       .get("/")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(200));
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> create_article
 =======
 >>>>>>> delete_article
+=======
+>>>>>>> edit_article
   });
 
   // Admin can create an employee user account
@@ -34,6 +40,7 @@ describe("Teamwork", () => {
         .post("/auth/create-user")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         .end((err, { status }) => {
 =======
         .end((err, {status}) => {
@@ -41,6 +48,9 @@ describe("Teamwork", () => {
 =======
         .end((err, {status}) => {
 >>>>>>> delete_article
+=======
+        .end((err, {status}) => {
+>>>>>>> edit_article
           expect(status).to.equal(201);
           done();
         });
@@ -337,3 +347,4 @@ describe("Teamwork", () => {
     });
   });
 });
+
