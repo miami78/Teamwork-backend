@@ -92,22 +92,22 @@ describe("Teamwork", () => {
     });
   });
   // employees can post gifs
-  describe("POST /gifs", function() {
-    it("responds with status code 201 - Creates a gif", function(done) {
+  describe("POST /gifs", () => {
+    it("responds with status code 201 - Creates a gif", done => {
       request(app)
         .post("/gifs")
-        .end(function(err, res) {
+        .end((err, {status}) => {
           if (err) return done(err);
-          expect(res.status).to.equal(201);
+          expect(status).to.equal(201);
           done();
         });
     });
-    it("returns json object with status success", function(done) {
+    it("returns json object with status success", done => {
       request(app)
         .post("/gifs")
         .set("header", "application/json")
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
