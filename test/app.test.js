@@ -57,17 +57,17 @@ describe("Teamwork", () => {
   });
 
   // Admin/Employee can signin
-  describe("POST /auth/signin", function() {
-    it("responds with status code 200", function(done) {
+  describe("POST /auth/signin", () => {
+    it("responds with status code 200", done => {
       request(app)
         .post("/auth/signin")
-        .end(function(err, res) {
+        .end((err, {status}) => {
           if (err) return done(err);
-          expect(res.status).to.equal(200);
+          expect(status).to.equal(200);
           done();
         });
     });
-    it("returns json data containing status success", function(done) {
+    it("returns json data containing status success", done => {
       request(app)
         .post("/auth/signin")
         .send({
@@ -75,7 +75,7 @@ describe("Teamwork", () => {
           password: "string"
         })
         .expect("Content-Type", /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return done(err);
           const {
             body: {
