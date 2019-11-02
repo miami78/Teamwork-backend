@@ -245,3 +245,39 @@ describe("DELETE /gifs/<:gifId>", function() {
       });
   });
 });
+
+// Employees can comment on other colleagues' article post
+describe("POST /articles/<:articleId>/comment", function() {
+  it("responds with status code 201", function(done) {
+    request(app)
+      .post("/articles/:articleId/comment")
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.status).to.equal(201);
+        done();
+      });
+  });
+  it("returns json object containing comment and status success", function(done) {
+    request(app)
+      .post("/articles/:articleId/comment")
+      .set("header", "application/json")
+      .send({ comment: "string" })
+      .expect("Content-Type", /json/)
+      .end(function(err, res) {
+        if (err) return done(err);
+        const {
+          body: {
+            status,
+            data: { message, createdOn, articleTitle, article, comment }
+          }
+        } = res;
+        expect(status).to.equal("success");
+        expect(message).to.be.equal("Comment successfully created");
+        expect(createdOn).to.be.a("string");
+        expect(articleTitle).to.be.a("string");
+        expect(article).to.be.a("string");
+        expect(comment).to.be.a("string");
+        done();
+      });
+  });
+});
