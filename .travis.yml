@@ -5,3 +5,4 @@ node_js:
 branches:
   only:
   - development
+after_success: npm run coverage
