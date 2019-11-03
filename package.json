@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "nyc mocha --recursive"
+    "test": "nyc mocha --recursive",
+    "coveralls": "nyc mocha --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "repository": "https://github.com/miami78/Teamwork-backend.git",
   "author": "Miami Larry",
