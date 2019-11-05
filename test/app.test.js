@@ -14,7 +14,6 @@ describe("Teamwork", () => {
         .end((err, res) => {
           expect(res.status).to.equal(200);
           if (err) return done(err);
-
           done();
         });
     });
