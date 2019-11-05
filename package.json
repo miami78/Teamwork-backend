@@ -14,13 +14,17 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.6",
+    "bluebird": "^3.7.1",
     "body-parser": "^1.18.2",
     "chai": "^4.2.0",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "nodemon": "^1.19.4",
-    "pg": "^7.4.0"
+    "pg": "^7.4.0",
+    "pg-promise": "^9.3.3"
   },
   "devDependencies": {
     "coveralls": "^3.0.7",

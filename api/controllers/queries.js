@@ -1,8 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require("../controllers/db");
-
-// SQL query to post /auth/create-user
+const db = require("./db");
+// SQL query to create-user
 const createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(password => {
     const {
