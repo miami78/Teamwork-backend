@@ -11,4 +11,9 @@ cache:
 branches:
   only:
   - development
+before_script:
+  psql -U postgres -c 'create database teamwork-dev;' &&
+  psql -U postgres -d travis_ci_test -a -f setupdb.sql
+services:
+  -postgresql
 after_success: yarn coverage
