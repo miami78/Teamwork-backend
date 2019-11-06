@@ -15,5 +15,5 @@ services:
   - postgresql
 before_script:
   - psql -c "CREATE DATABASE teamwork_dev;" -U postgres
-  - psql -c "CREATE USER foo WITH PASSWORD 'bar';" -U postgres
+  - psql -U postgres -d teamwork_dev -a -f setupdb.sql
 after_success: yarn coverage
