@@ -14,6 +14,6 @@ branches:
 services:
   - postgresql
 before_script:
-  - psql -c "CREATE DATABASE travis_ci_test;" -U postgres
+  - psql -c "CREATE DATABASE teamwork-dev;" -U postgres
   - psql -c "CREATE USER foo WITH PASSWORD 'bar';" -U postgres
 after_success: yarn coverage
