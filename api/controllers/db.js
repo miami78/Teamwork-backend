@@ -9,7 +9,7 @@ const pgp = require("pg-promise")(initOptions);
 
 // Preparing the connection details:
 const connectString =
-  "postgres://postgres:50filthyCENT!@localhost:5432/teamwork-dev";
+  "postgres://postgres:50filthyCENT!@localhost:5432/teamwork_dev";
 
 // Creating a new database instance from the connection details:
 const db = pgp(connectString);
