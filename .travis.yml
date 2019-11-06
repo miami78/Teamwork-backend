@@ -14,6 +14,6 @@ branches:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres; &&
-    psql -U postgres -d travis_ci_test -a -f setupdb.sql
+  - psql -c "CREATE DATABASE travis_ci_test;" -U postgres &&
+  - psql -U postgres -d travis_ci_test -a -f setupdb.sql
 after_success: yarn coverage
