@@ -13,24 +13,26 @@ describe("Teamwork", () => {
   let userToken;
   let employeeid;
   before(done => {
-    db.none("TRUNCATE TABLE employee CASCADE").then(() => {
-      db.one(
-        // insert in a default user
-        `INSERT INTO employee (${Object.keys(user.defaultUser).join(
-          ", "
-        )}) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING employeeid`,
-        Object.values(user.defaultUser)
-      ).then(val => {
-        // generate token for default user
-        employeeid = val.employeeid;
-        userToken = jwt.sign(
-          { userid: val.employeeid },
-          "RANDOM_TOKEN_SECRET",
-          {
-            expiresIn: "1h"
-          }
-        );
-        done();
+    db.none("TRUNCATE TABLE article CASCADE").then(() => {
+      db.none("TRUNCATE TABLE employee CASCADE").then(() => {
+        db.one(
+          // insert in a default user
+          `INSERT INTO employee (${Object.keys(user.defaultUser).join(
+            ", "
+          )}) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING employeeid`,
+          Object.values(user.defaultUser)
+        ).then(val => {
+          // generate token for default user
+          employeeid = val.employeeid;
+          userToken = jwt.sign(
+            { userid: val.employeeid },
+            "RANDOM_TOKEN_SECRET",
+            {
+              expiresIn: "1h"
+            }
+          );
+          done();
+        });
       });
     });
   });
@@ -167,6 +169,33 @@ describe("Teamwork", () => {
           expect(imageUrl).to.be.a("string");
           expect(gifid).to.be.a("number");
           expect(gifid % 1).to.equal(0);
+          done();
+        });
+    });
+  });
+  // employees can create article
+  describe("POST /articles", () => {
+    it("responds with status code 201 and returns json data", done => {
+      request(app)
+        .post("/api/v1/articles")
+        .set("authorization", userToken)
+        .send(user.defaultArticle)
+        .expect("Content-Type", /json/)
+        .end((err, res) => {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message, articleId, createdOn, title }
+            }
+          } = res;
+          expect(res.status).to.equal(201);
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Article successfully posted");
+          expect(createdOn).to.be.a("string");
+          expect(title).to.be.a("string");
+          expect(articleId).to.be.a("number");
+          expect(articleId % 1).to.equal(0);
           done();
         });
     });

@@ -18,3 +18,11 @@ CREATE TABLE gif (
 	authorid bigint,
 	PRIMARY KEY (gifid)
 );
+CREATE TABLE article (
+	title varchar(400) DEFAULT 'varchar'::character varying NOT NULL,
+	article varchar(10485760) DEFAULT 'varchar'::character varying NOT NULL,
+	date_created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	articleid serial NOT NULL,
+	authorid bigint,
+	PRIMARY KEY (articleid)
+);

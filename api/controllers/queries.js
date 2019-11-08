@@ -117,8 +117,32 @@ const createGif = (req, res, next) => {
       res.status(400).json(next(err));
     });
 };
+// SQL query for POST /articles
+const createArticle = (req, res, next) => {
+  const { title, article } = req.body;
+  db.one({
+    text:
+      "INSERT INTO article(title, article, authorid) VALUES($1, $2, $3) RETURNING title, date_created, articleId",
+    values: [title, article, req.auth]
+  })
+    .then(value => {
+      res.status(201).json({
+        status: "success",
+        data: {
+          message: "Article successfully posted",
+          articleId: value.articleid,
+          createdOn: value.date_created,
+          title: value.title
+        }
+      });
+    })
+    .catch(err => {
+      res.status(400).json(next(err));
+    });
+};
 module.exports = {
   createUser,
   signin,
-  createGif
+  createGif,
+  createArticle
 };
