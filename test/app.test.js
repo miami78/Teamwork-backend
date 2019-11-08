@@ -269,4 +269,38 @@ describe("Teamwork", () => {
         });
     });
   });
+  // employees can delete their gif
+  describe("DELETE /gifs/<gifid>", () => {
+    let gifid;
+    before(done => {
+      db.none("TRUNCATE TABLE gif CASCADE");
+      db.one(
+        // Insert default Article into table article
+        "INSERT INTO gif (title, image_url, date_created) VALUES ($1, $2, $3) RETURNING gifid",
+        [user.testGif.title, user.testGif.image, user.testGif.date]
+      ).then(val => {
+        gifid = val.gifid;
+        done();
+      });
+    });
+    it("responds with status code 200 and returns json object", done => {
+      request(app)
+        .delete(`/api/v1/gifs/${gifid}`)
+        .set("authorization", userToken)
+        .expect("Content-Type", /json/)
+        .end((err, res) => {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message }
+            }
+          } = res;
+          expect(res.status).to.equal(200);
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("gif post successfully deleted");
+          done();
+        });
+    });
+  });
 });

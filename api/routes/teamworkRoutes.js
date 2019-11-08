@@ -25,4 +25,7 @@ router.delete(
   teamworkQuery.deleteArticle
 );
 
+// employees can delete their gifs
+router.delete("/gifs/:gifid", routeAuth.auth, teamworkQuery.deleteGif);
+
 module.exports = router;

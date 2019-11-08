@@ -182,11 +182,30 @@ const deleteArticle = (req, res, next) => {
       res.status(400).json(next(err));
     });
 };
+// SQL query for DELETE /gifs/<:gifId>
+const deleteGif = (req, res, next) => {
+  db.none({
+    text: "DELETE FROM gif WHERE gifid = $1",
+    values: [req.params.gifid]
+  })
+    .then(() => {
+      res.status(200).json({
+        status: "success",
+        data: {
+          message: "gif post successfully deleted"
+        }
+      });
+    })
+    .catch(err => {
+      res.status(400).json(next(err));
+    });
+};
 module.exports = {
   createUser,
   signin,
   createGif,
   createArticle,
   editArticle,
-  deleteArticle
+  deleteArticle,
+  deleteGif
 };
