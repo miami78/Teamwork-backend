@@ -200,4 +200,40 @@ describe("Teamwork", () => {
         });
     });
   });
+  // employees can edit their article
+  describe("PATCH /articles/<articleid>", () => {
+    let articleid;
+    before(done => {
+      db.one(
+        // Insert default Article into table article
+        "INSERT INTO article (title, article) VALUES ($1, $2) RETURNING articleid",
+        [user.defaultArticle.title, user.defaultArticle.article]
+      ).then(val => {
+        articleid = val.articleid;
+        done();
+      });
+    });
+    it("responds with status code 201 and returns json data", done => {
+      request(app)
+        .patch(`/api/v1/articles/${articleid}`)
+        .set("authorization", userToken)
+        .send(user.editedArticle)
+        .expect("Content-Type", /json/)
+        .end((err, res) => {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message, title, article }
+            }
+          } = res;
+          expect(res.status).to.equal(201);
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Article successfully updated");
+          expect(title).to.be.a("string");
+          expect(article).to.be.a("string");
+          done();
+        });
+    });
+  });
 });

@@ -26,3 +26,6 @@ CREATE TABLE article (
 	authorid bigint,
 	PRIMARY KEY (articleid)
 );
+ALTER TABLE article
+	ADD FOREIGN KEY (authorid) 
+	REFERENCES employee (employeeid);
