@@ -43,3 +43,8 @@ exports.testGif = {
   image: "image_Gif",
   date: moment()
 };
+exports.defaultArticle = {
+  title: "Rename a local and remote branch in git",
+  article:
+    "If you have named a branch incorrectly AND pushed this to the remote repository follow these steps before any other developers get a chance to jump on you"
+};

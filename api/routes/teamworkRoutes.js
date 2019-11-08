@@ -12,4 +12,7 @@ router.get("/", (req, res) => {
 // employees can post gifs
 router.post("/gifs", routeAuth.auth, teamworkQuery.createGif);
 
+// employees can post articles
+router.post("/articles", routeAuth.auth, teamworkQuery.createArticle);
+
 module.exports = router;
