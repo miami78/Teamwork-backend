@@ -17,4 +17,12 @@ router.post("/articles", routeAuth.auth, teamworkQuery.createArticle);
 
 // employees can edit their articles
 router.patch("/articles/:articleid", routeAuth.auth, teamworkQuery.editArticle);
+
+// employees can delete their articles
+router.delete(
+  "/articles/:articleid",
+  routeAuth.auth,
+  teamworkQuery.deleteArticle
+);
+
 module.exports = router;
