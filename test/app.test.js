@@ -236,4 +236,37 @@ describe("Teamwork", () => {
         });
     });
   });
+  // employees can delete their articles
+  describe("DELETE /articles/<articleid>", () => {
+    let articleid;
+    before(done => {
+      db.one(
+        // Insert default Article into table article
+        "INSERT INTO article (title, article) VALUES ($1, $2) RETURNING articleid",
+        [user.defaultArticle.title, user.defaultArticle.article]
+      ).then(val => {
+        articleid = val.articleid;
+        done();
+      });
+    });
+    it("returns json data and responds with status code 200", done => {
+      request(app)
+        .delete(`/api/v1/articles/${articleid}`)
+        .set("authorization", userToken)
+        .expect("Content-Type", /json/)
+        .end((err, res) => {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { message }
+            }
+          } = res;
+          expect(res.status).to.equal(200);
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("Article successfully deleted");
+          done();
+        });
+    });
+  });
 });
