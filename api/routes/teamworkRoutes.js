@@ -28,4 +28,11 @@ router.delete(
 // employees can delete their gifs
 router.delete("/gifs/:gifid", routeAuth.auth, teamworkQuery.deleteGif);
 
+// employees can comment on other colleagues' article post
+router.post(
+  "/articles/:articleid/comment",
+  routeAuth.auth,
+  teamworkQuery.commentArticle
+);
+
 module.exports = router;

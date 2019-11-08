@@ -200,6 +200,37 @@ const deleteGif = (req, res, next) => {
       res.status(400).json(next(err));
     });
 };
+// SQL query for POST /articles/<articleId>/comment
+const commentArticle = (req, res, next) => {
+  const { comment } = req.body;
+  const authorid = req.auth;
+  const { articleid } = req.params;
+  db.one({
+    text:
+      "INSERT INTO comment (comment, authorid, articleid) VALUES ($1, $2, $3) RETURNING comment, date_created",
+    values: [comment, authorid, articleid]
+  })
+    .then(returnedComment => {
+      db.one({
+        text: "SELECT title, article FROM article WHERE articleid = $1",
+        values: [articleid]
+      }).then(value => {
+        res.status(201).json({
+          status: "success",
+          data: {
+            message: "Comment successfully created",
+            createdOn: returnedComment.date_created,
+            articleTitle: value.title,
+            article: value.article,
+            comment: returnedComment.comment
+          }
+        });
+      });
+    })
+    .catch(err => {
+      res.status(400).json(next(err));
+    });
+};
 module.exports = {
   createUser,
   signin,
@@ -207,5 +238,6 @@ module.exports = {
   createArticle,
   editArticle,
   deleteArticle,
-  deleteGif
+  deleteGif,
+  commentArticle
 };
