@@ -3,8 +3,10 @@ const request = require("supertest");
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
+// const cloudinary = require("cloudinary");
 const db = require("../api/controllers/db");
 const user = require("./data");
+
 const app = require("../app");
 
 describe("Teamwork", () => {
@@ -120,6 +122,51 @@ describe("Teamwork", () => {
           expect(token).to.be.a("string");
           expect(userId).to.be.a("number");
           expect(userId % 1).to.equal(0);
+          done();
+        });
+    });
+  });
+  // employees can Post gifs
+  describe("POST /gifs", () => {
+    before(() => {
+      db.none("TRUNCATE TABLE gif CASCADE");
+    });
+    //  it("successfully uploads gif to cloudinary", done => {
+    //  request(app)
+    //    .post("/gifs")
+    //    .set("header", "application/json")
+    //    .attach("imgUrl", "./image")
+    //    .end((err, req) => {
+    //      if (err) return done(err);
+    //      const {
+    //        body: { image }
+    //      } = req;
+    //      expect(image).to.be.an("url");
+    //      done();
+    //    });
+    //  });
+    it("responds with status 201 and returns json object", done => {
+      request(app)
+        .post("/api/v1/gifs")
+        .set("authorization", userToken)
+        .send(user.testGif)
+        .expect("Content-Type", /json/)
+        .end((err, res) => {
+          if (err) return done(err);
+          const {
+            body: {
+              status,
+              data: { gifid, message, createdOn, title, imageUrl }
+            }
+          } = res;
+          expect(res.status).to.equal(200);
+          expect(status).to.equal("success");
+          expect(message).to.be.equal("GIF image successfully posted");
+          expect(createdOn).to.be.a("string");
+          expect(title).to.be.a("string");
+          expect(imageUrl).to.be.a("string");
+          expect(gifid).to.be.a("number");
+          expect(gifid % 1).to.equal(0);
           done();
         });
     });
