@@ -56,3 +56,6 @@ exports.editedArticle = {
 exports.comment1 = {
   comment: "Shut up Karen"
 };
+exports.comment2 = {
+  comment: "Really Karen?"
+};
