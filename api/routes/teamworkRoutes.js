@@ -1,4 +1,6 @@
 const express = require("express");
+const teamworkQuery = require("../controllers/queries");
+const routeAuth = require("../auth/auth");
 
 const router = express.Router();
 
@@ -6,5 +8,8 @@ const router = express.Router();
 router.get("/", (req, res) => {
   res.json({ message: "Server starts successfully!" });
 });
+
+// employees can post gifs
+router.post("/gifs", routeAuth.auth, teamworkQuery.createGif);
 
 module.exports = router;

@@ -10,3 +10,11 @@ CREATE TABLE employee (
 	employeeid serial NOT NULL,
 	PRIMARY KEY (employeeid)
 );
+CREATE TABLE gif (
+	gifid serial NOT NULL,
+	title varchar(200) DEFAULT 'varchar'::character varying,
+	image_url varchar(8000) DEFAULT 'varchar'::character varying,
+	date_created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	authorid bigint,
+	PRIMARY KEY (gifid)
+);

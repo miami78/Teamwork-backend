@@ -1,4 +1,5 @@
-// Employee account creation 
+const moment = require("moment");
+// Employee account creation
 exports.defaultUser = {
   firstname: "Miami",
   lastname: "Larry",
@@ -35,4 +36,10 @@ exports.testUser2 = {
 exports.userLogin = {
   email: "joy.ejiofoh@andela.com",
   password: "PasswordReset"
+};
+// create a gif post
+exports.testGif = {
+  title: "FDC",
+  image: "image_Gif",
+  date: moment()
 };

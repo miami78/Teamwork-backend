@@ -93,7 +93,32 @@ const signin = (req, res, next) => {
       res.status(500).json(next(err));
     });
 };
+// SQL query to POST /gifs
+const createGif = (req, res, next) => {
+  const { title, image, date } = req.body;
+  db.one({
+    text:
+      "INSERT INTO gif (title, image_url, date_created, authorid) VALUES($1, $2, $3, $4) RETURNING gifid, title, image_url, date_created",
+    values: [title, image, date, req.auth]
+  })
+    .then(value => {
+      res.status(200).json({
+        status: "success",
+        data: {
+          gifid: value.gifid,
+          message: "GIF image successfully posted",
+          createdOn: value.date_created,
+          title: value.title,
+          imageUrl: value.image_url
+        }
+      });
+    })
+    .catch(err => {
+      res.status(400).json(next(err));
+    });
+};
 module.exports = {
   createUser,
-  signin
+  signin,
+  createGif
 };
