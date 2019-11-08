@@ -140,9 +140,34 @@ const createArticle = (req, res, next) => {
       res.status(400).json(next(err));
     });
 };
+// SQL query for PATCH /articles/<:articleId>
+const editArticle = (req, res, next) => {
+  const { title, article } = req.body;
+  const { articleid } = req.params;
+  const authorid = req.auth;
+  db.one({
+    text:
+      "UPDATE article SET title = $1, article = $2, authorid = $3 WHERE articleid = $4 RETURNING title, article",
+    values: [title, article, authorid, articleid]
+  })
+    .then(value => {
+      res.status(201).json({
+        status: "success",
+        data: {
+          message: "Article successfully updated",
+          title: value.title,
+          article: value.article
+        }
+      });
+    })
+    .catch(err => {
+      res.status(400).json(next(err));
+    });
+};
 module.exports = {
   createUser,
   signin,
   createGif,
-  createArticle
+  createArticle,
+  editArticle
 };

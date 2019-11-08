@@ -15,4 +15,6 @@ router.post("/gifs", routeAuth.auth, teamworkQuery.createGif);
 // employees can post articles
 router.post("/articles", routeAuth.auth, teamworkQuery.createArticle);
 
+// employees can edit their articles
+router.patch("/articles/:articleid", routeAuth.auth, teamworkQuery.editArticle);
 module.exports = router;

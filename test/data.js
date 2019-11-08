@@ -48,3 +48,8 @@ exports.defaultArticle = {
   article:
     "If you have named a branch incorrectly AND pushed this to the remote repository follow these steps before any other developers get a chance to jump on you"
 };
+exports.editedArticle = {
+  title: "Best Practices for Designing a Pragmatic RESTful API",
+  article:
+    "Your data model has started to stabilize and you're in a position to create a public API for your web app. You realize it's hard to make significant changes to your API once it's released"
+};
