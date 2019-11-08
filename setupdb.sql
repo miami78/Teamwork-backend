@@ -29,3 +29,12 @@ CREATE TABLE article (
 ALTER TABLE article
 	ADD FOREIGN KEY (authorid) 
 	REFERENCES employee (employeeid);
+CREATE TABLE comment (
+	commentid serial NOT NULL,
+	"comment" varchar(103000) DEFAULT 'varchar'::character varying,
+	authorid bigint,
+	articleid bigint,
+	gifid bigint,
+	date_created timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	PRIMARY KEY (commentid)
+);
