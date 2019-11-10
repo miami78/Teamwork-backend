@@ -261,6 +261,9 @@ const commentGif = (req, res, next) => {
       res.status(400).json(next(err));
     });
 };
+// SQL query for GET /feed
+// SQL query for GET /articles/<:articleId>
+// SQL query for GET /gifs/<:gifId>
 module.exports = {
   createUser,
   signin,

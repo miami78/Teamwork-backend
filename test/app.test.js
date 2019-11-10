@@ -381,4 +381,23 @@ describe("Teamwork", () => {
         });
     });
   });
+  // Employees can view all articles/gif posts showing the most recent first
+  describe("GET /api/v1/feed", () => {
+    it("Should get all articles and gifs and respond with json", () => {
+      request(app)
+        .get("/api/v1/feed")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .then(res => {
+          const {
+            body: {
+              status,
+              data: {  }
+            }
+          } = res;
+          expect(res.status).to.equal(200);
+          });
+        });
+    });
+  });
 });
