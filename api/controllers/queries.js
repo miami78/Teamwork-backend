@@ -262,6 +262,25 @@ const commentGif = (req, res, next) => {
     });
 };
 // SQL query for GET /feed
+const feed = (req, res, next) => {
+  const { article, gif } = req.body;
+  db.one({
+    text: "(SELECT * FROM article) UNION ALL (SELECT * FROM gif)",
+    values: [article, gif]
+  })
+    .then(value => {
+      res.status(200).json({
+        status: "success",
+        data: {
+          feed: value.rows
+        }
+      });
+    })
+    .catch(err => {
+      res.status(400).json(next(err));
+    });
+};
+
 module.exports = {
   createUser,
   signin,
@@ -271,5 +290,6 @@ module.exports = {
   deleteArticle,
   deleteGif,
   commentArticle,
-  commentGif
+  commentGif,
+  feed
 };

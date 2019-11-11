@@ -60,9 +60,7 @@ exports.comment2 = {
   comment: "Really Karen?"
 };
 exports.feed = {
-  constructor(testGif, defaultArticle, editedArticle) {
-    this.testGif = testGif;
-    this.defaultArticle = defaultArticle;
-    this.editedArticle = editedArticle;
-  }
+  title: "Best Practices for Designing a Pragmatic RESTful API",
+  article:
+    "Your data model has started to stabilize and you're in a position to create a public API for your web app. You realize it's hard to make significant changes to your API once it's released"
 };
