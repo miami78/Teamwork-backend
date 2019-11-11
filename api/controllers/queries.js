@@ -262,8 +262,6 @@ const commentGif = (req, res, next) => {
     });
 };
 // SQL query for GET /feed
-// SQL query for GET /articles/<:articleId>
-// SQL query for GET /gifs/<:gifId>
 module.exports = {
   createUser,
   signin,

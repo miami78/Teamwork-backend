@@ -381,22 +381,26 @@ describe("Teamwork", () => {
         });
     });
   });
-  // Employees can view all articles/gif posts showing the most recent first
+  // Employees should get all feed
   describe("GET /api/v1/feed", () => {
-    it("Should get all articles and gifs and respond with json", () => {
+    it("Should get all articles and gifs", done => {
       request(app)
         .get("/api/v1/feed")
-        .set("Accept", "application/json")
+        .set("authorization", userToken)
+        .send(user.feed)
         .expect("Content-Type", /json/)
-        .then(res => {
+        .end((err, res) => {
+          if (err) return done(err);
           const {
             body: {
               status,
-              data: {  }
+              data: { feed }
             }
           } = res;
           expect(res.status).to.equal(200);
-          });
+          expect(status).to.equal("success");
+          expect(feed).to.be.a("string");
+          done();
         });
     });
   });

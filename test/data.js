@@ -59,3 +59,10 @@ exports.comment1 = {
 exports.comment2 = {
   comment: "Really Karen?"
 };
+exports.feed = {
+  constructor(testGif, defaultArticle, editedArticle) {
+    this.testGif = testGif;
+    this.defaultArticle = defaultArticle;
+    this.editedArticle = editedArticle;
+  }
+};
