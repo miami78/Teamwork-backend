@@ -280,7 +280,35 @@ const feed = (req, res, next) => {
       res.status(400).json(next(err));
     });
 };
-
+// SQL query for GET /articles/<:articleId>
+const getArticle = (req, res, next) => {
+  const { articleid } = req.params;
+  db.one(
+    `SELECT DISTINCT title, date_created, authorid, articleid FROM feed WHERE (articleid=$1 AND type='article');`,
+  [articleid]
+  )
+    .then(value => {
+      db.one(
+        `SELECT articleid, comment, authorid, date_created
+       FROM comments WHERE articleid = $1`,
+        [value.rows[0].id].then(comments =>
+          res.status(200).json({
+            status: "success",
+            data: {
+              value: value.rows[0],
+              comments: comments.rows
+            }
+          })
+        )
+      );
+    })
+    .catch(error =>
+      res.status(404).json({
+        status: "failure",
+        error: `Unable to view article with id: ${articleid}, ${error}`
+      })
+    );
+};
 module.exports = {
   createUser,
   signin,
@@ -291,5 +319,6 @@ module.exports = {
   deleteGif,
   commentArticle,
   commentGif,
-  feed
+  feed,
+  getArticle
 };

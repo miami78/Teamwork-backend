@@ -53,6 +53,11 @@ exports.editedArticle = {
   article:
     "Your data model has started to stabilize and you're in a position to create a public API for your web app. You realize it's hard to make significant changes to your API once it's released"
 };
+exports.editedArticle2 = {
+  title: "Best Practices for Designing a Pragmatic RESTful API",
+  article:
+    "Your data model has started to stabilize and you're in a position to create a public API for your web app. You realize it's hard to make significant changes to your API once it's released"
+};
 exports.comment1 = {
   comment: "Shut up Karen"
 };
