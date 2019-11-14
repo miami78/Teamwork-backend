@@ -262,7 +262,21 @@ const commentGif = (req, res, next) => {
     });
 };
 // SQL query for GET /feed
-
+const getFeed = (req, res, next) => {
+  db.one(
+    "SELECT * FROM article  LEFT [ OUTER ] JOIN feed ON article.articleid=feed.gifid;"
+  ).then(result =>
+    res
+      .status(200)
+      .json({
+        status: "success",
+        data: [result.rows]
+      })
+      .catch(err => {
+        res.status(400).json(next(err));
+      })
+  );
+};
 
 module.exports = {
   createUser,
@@ -273,5 +287,6 @@ module.exports = {
   deleteArticle,
   deleteGif,
   commentArticle,
-  commentGif
+  commentGif,
+  getFeed
 };

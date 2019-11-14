@@ -382,4 +382,20 @@ describe("Teamwork", () => {
     });
   });
   // Employees should get all feed
+  describe("GET /feed", () => {
+    it("Should allow signed in employee see their feed", done => {
+      request(app)
+        .get("/api/v1/feed")
+        .set("authorization", userToken)
+        .end((err, res) => {
+          if (err) return done(err);
+          const {
+            body: { status }
+          } = res;
+          expect(res.status).to.equal(201);
+          expect(status).to.equal("success");
+          done();
+        });
+    });
+  });
 });
