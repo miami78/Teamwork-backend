@@ -382,26 +382,26 @@ describe("Teamwork", () => {
     });
   });
   // Employees should get all feed
-  describe("GET /api/v1/feed", () => {
-    it("Should get all articles and gifs", done => {
-      request(app)
-        .get("/api/v1/feed")
-        .set("authorization", userToken)
-        .send(user.feed)
-        .expect("Content-Type", /json/)
-        .end((err, res) => {
-          if (err) return done(err);
-          const {
-            body: {
-              status,
-              data: { feed }
-            }
-          } = res;
-          expect(res.status).to.equal(200);
-          expect(status).to.equal("success");
-          expect(feed).to.be.a("string");
-          done();
-        });
-    });
-  });
+  // describe("GET /api/v1/feed", () => {
+  //   it("Should get all articles and gifs", done => {
+  //     request(app)
+  //       .get("/api/v1/feed")
+  //       .set("authorization", userToken)
+  //       .send(user.feed)
+  //       .expect("Content-Type", /json/)
+  //       .end((err, res) => {
+  //         if (err) return done(err);
+  //         const {
+  //           body: {
+  //             status,
+  //             data: { feed }
+  //           }
+  //         } = res;
+  //         expect(res.status).to.equal(200);
+  //         expect(status).to.equal("success");
+  //         expect(feed).to.be.a("string");
+  //         done();
+  //       });
+  //   });
+  // });
 });
