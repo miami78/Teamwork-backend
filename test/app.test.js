@@ -382,26 +382,38 @@ describe("Teamwork", () => {
     });
   });
   // Employees should get all feed
-  describe("GET /api/v1/feed", () => {
-    it("Should get all articles and gifs", done => {
-      request(app)
-        .get("/api/v1/feed")
-        .set("authorization", userToken)
-        .send(user.feed)
-        .expect("Content-Type", /json/)
-        .end((err, res) => {
-          if (err) return done(err);
-          const {
-            body: {
-              status,
-              data: { feed }
-            }
-          } = res;
-          expect(res.status).to.equal(200);
-          expect(status).to.equal("success");
-          expect(feed).to.be.a("string");
-          done();
-        });
-    });
-  });
+  // Employees should view specific article
+  // describe("GET /api/v1/articles/:id", () => {
+  //   let articleid;
+  //   before(done => {
+  //     db.one(
+  //       // Insert default Article into table article
+  //       `SELECT DISTINCT title, date_created, authorid, articleid FROM feed WHERE (articleid=$1 AND type='article');`,
+  //       [articleid]
+  //     ).then(value => {
+  //       articleid = value.articleid;
+  //       done();
+  //     });
+  //   });
+  //   it("Should be able to retrieve a specific article upon request", done => {
+  //     request(app)
+  //       .get(`/api/v1/articles/${articleid}`)
+  //       .set("Content-Type", "application/json")
+  //       .then(res => {
+  //         const {
+  //           body: {
+  //             status,
+  //             data: { value }
+  //           }
+  //         } = res;
+  //         expect(res.status).to.equal(200);
+  //         expect(status).to.equal("success");
+  //         expect(value).to.be.a("string");
+  //         expect(articleid).to.be.a("number");
+  //         expect(articleid % 1).to.equal(0);
+  //         done();
+  //       })
+  //       .catch(err => done(err));
+  //   });
+  // });
 });
