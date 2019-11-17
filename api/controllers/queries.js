@@ -262,18 +262,22 @@ const commentGif = (req, res, next) => {
     });
 };
 // SQL query for GET /feed
-const feed = (req, res, next) => {
-  const { article, gif } = req.body;
+const getFeed = (req, res, next) => {
   db.one({
-    text: "(SELECT * FROM article) UNION ALL (SELECT * FROM gif)",
-    values: [article, gif]
+    text: `SELECT 
+    id as "articleid", NULL AS gifid, title, article, NULL as url, date_created
+    FROM articles
+UNION
+SELECT
+    NULL, id as "gifid", title, NULL, url, date_created
+FROM gifs
+ORDER BY
+"createdOn" DESC;`
   })
     .then(value => {
       res.status(200).json({
         status: "success",
-        data: {
-          feed: value.rows
-        }
+        data: [value.rows]
       });
     })
     .catch(err => {
@@ -285,7 +289,7 @@ const getArticle = (req, res, next) => {
   const { articleid } = req.params;
   db.one(
     `SELECT DISTINCT title, date_created, authorid, articleid FROM feed WHERE (articleid=$1 AND type='article');`,
-  [articleid]
+    [articleid]
   )
     .then(value => {
       db.one(
@@ -319,6 +323,6 @@ module.exports = {
   deleteGif,
   commentArticle,
   commentGif,
-  feed,
+  getFeed,
   getArticle
 };

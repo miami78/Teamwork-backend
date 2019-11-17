@@ -39,6 +39,6 @@ router.post(
 router.post("/gifs/:gifid/comment", routeAuth.auth, teamworkQuery.commentGif);
 
 // employees can view feed
-router.get("/feed", routeAuth.auth, teamworkQuery.feed);
+router.get("/feed", routeAuth.auth);
 
 module.exports = router;
